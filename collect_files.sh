@@ -1,4 +1,3 @@
-chmod +x collect_files.sh
 input_directory="$1"
 output_directory="$2"
 
