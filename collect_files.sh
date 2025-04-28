@@ -58,17 +58,19 @@ if [ "$code_word_max_depth" = "" ] || [ "$max_depth" = "" ] || [ "$max_depth" = 
     current_line=$(($current_line+1))
     done
 else
-    find $input_directory -type d -empty -delete # Удалим все пустые папки
-    find $input_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
+    cp -r $input_directory/* $output_directory/
+
+    find $output_directory -type d -empty -delete # Удалим все пустые папки
+    find $output_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
     sed -i 1d temp.txt # Удалим сразу ненужную первую строку с самой директорией
-    find $input_directory -maxdepth $max_depth -type d -print > temp1.txt
+    find $output_directory -maxdepth $max_depth -type d -print > temp1.txt
     sed -i 1d temp1.txt 
     cat temp1.txt temp.txt temp.txt | sort | uniq -u > temp2.txt # Запишем папки, располагающиеся на максимальной допустимой глубине
 
     ans_to_bring_num=$(($max_depth-2))
 
     cnt=0
-    c=$input_directory
+    c=$output_directory
     while [ "$c" != "" ]     # Надо как в new.sh пообрезать слева, но только надо так, чтобы от уровня директории главной мы отрезали max_depth-ans_to_bring_num раз. Потом уже с результатом работать над переносом его наверх.
     do
     c=$(echo ${c#*/})
@@ -89,15 +91,15 @@ else
                 f=$(echo ${f#*/})
                 cnt=$((cnt+1))
             done
-            mkdir -p $input_directory/$f
-            cp -r $current_folder_address/* $input_directory/$f/
+            mkdir -p $output_directory/$f
+            cp -r $current_folder_address/* $output_directory/$f/
             rm -r $current_folder_address
             done
             
-            find $input_directory -type d -empty -delete # Удалим все пустые папки
-            find $input_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
+            find $output_directory -type d -empty -delete # Удалим все пустые папки
+            find $output_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
             sed -i 1d temp.txt # Удалим сразу ненужную первую строку с самой директорией
-            find $input_directory -maxdepth $max_depth -type d -print > temp1.txt
+            find $output_directory -maxdepth $max_depth -type d -print > temp1.txt
             sed -i 1d temp1.txt 
             cat temp1.txt temp.txt temp.txt | sort | uniq -u > temp2.txt # Запишем папки, располагающиеся на максимальной допустимой глубине
         done
@@ -107,18 +109,17 @@ else
             folder_addresses=($(cat temp2.txt))
             for (( i=0; i <= $(($(grep -c $ temp2.txt)-1)); i++ ))
             do
-            mkdir -p $input_directory/${folder_names[i]}
-            cp -r ${folder_addresses[i]}/* $input_directory/${folder_names[i]}/
+            mkdir -p $output_directory/${folder_names[i]}
+            cp -r ${folder_addresses[i]}/* $output_directory/${folder_names[i]}/
             rm -r ${folder_addresses[i]}
             done
             
-            find $input_directory -type d -empty -delete # Удалим все пустые папки
-            find $input_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
+            find $output_directory -type d -empty -delete # Удалим все пустые папки
+            find $output_directory -maxdepth $(($max_depth-1)) -type d -print > temp.txt
             sed -i 1d temp.txt # Удалим сразу ненужную первую строку с самой директорией
-            find $input_directory -maxdepth $max_depth -type d -print > temp1.txt
+            find $output_directory -maxdepth $max_depth -type d -print > temp1.txt
             sed -i 1d temp1.txt 
             cat temp1.txt temp.txt temp.txt | sort | uniq -u > temp2.txt # Запишем папки, располагающиеся на максимальной допустимой глубине
         done
     fi
-    cp -r $input_directory/* $output_directory/
 fi
