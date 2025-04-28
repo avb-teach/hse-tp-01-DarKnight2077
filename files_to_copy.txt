@@ -1,0 +1,6 @@
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/Boom/Lyrics.txt
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/Boom/Bubbles.txt
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/Bubbles.txt
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/code.py
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/Genesis/Shazam.iso
+/home/michael_timerbulatov/hse-tp-01-DarKnight2077/indir/Genesis/R&D/Budget.txt
